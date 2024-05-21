@@ -1,0 +1,16 @@
+@import url('./spacing.scss');
+@import url('./grid.scss');
+
+h1,h2,h3,h4,h5,h6 {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0 32px;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
+}
+
+.el-popconfirm__main {
+  word-break: break-word;
+}

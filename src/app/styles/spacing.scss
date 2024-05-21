@@ -1,0 +1,21 @@
+$spacingRulesMargin: ma margin, mt margin-top, mr margin-right, mb margin-bottom, ml margin-left, mx margin-left, margin-right, my margin-top, margin-bottom, gap gap;
+$spacingRulesPadding: pa padding, pt padding-top, pr padding-right, pb padding-bottom, pl padding-left, px padding-left, padding-right, py padding-top, padding-bottom;
+$spacingValue: 4px;
+$spacingRulesFrom: 0;
+$spacingRulesTo: 16;
+
+@mixin generateSpacing($prefix, $properties) {
+  @for $i from $spacingRulesFrom through $spacingRulesTo {
+    .#{$prefix}-#{$i} {
+      @each $property in $properties {
+        #{$property}: $spacingValue * $i;
+      }
+    }
+  }
+}
+@each $prefix, $property in $spacingRulesMargin {
+  @include generateSpacing($prefix, $property);
+}
+@each $prefix, $property in $spacingRulesPadding {
+  @include generateSpacing($prefix, $property);
+}
