@@ -33,6 +33,10 @@ export const useBoardsStore = defineStore("boards", () => {
   const isAddCardModalVisible = ref<boolean>(false);
   const addCardModalColumnId = ref<number | null>(null);
 
+  const isUpdateCardModalVisible = ref<boolean>(false);
+  const updateCardModalColumnId = ref<number | null>(null);
+  const updateCardModalTask = ref<Task | null>(null);
+
   function onDragStart(boardId: number, taskId: number) {
     dropBoardId.value = boardId;
     draggedTaskId.value = taskId;
@@ -117,19 +121,64 @@ export const useBoardsStore = defineStore("boards", () => {
     addCardModalColumnId.value = columnId;
   }
 
+  function openUpdateTaskModal(boardId: number, task: Task) {
+    console.log("open");
+    console.log(boardId);
+    console.log(task);
+
+    const board = boards.value.find(({ id }) => id === boardId);
+    const [column] = board?.columns.filter((column) =>
+      column.tasks.includes(task)
+    ) as Column[];
+
+    isUpdateCardModalVisible.value = true;
+
+    if (column) {
+      updateCardModalColumnId.value = column.id;
+    }
+
+    updateCardModalTask.value = task;
+  }
+
+  function updateTask(boardId: number, task: Task) {
+    console.log(task);
+    console.log(boardId);
+
+    const board = boards.value.find(({ id }) => id === boardId);
+    const column = board?.columns.find(
+      ({ id }) => id === updateCardModalColumnId.value
+    );
+    console.log(updateCardModalColumnId.value);
+
+    if (column) {
+      console.log(task);
+      const taskIndex = column.tasks.findIndex(({ id }) => id === task.id);
+      console.log(taskIndex);
+      column.tasks.splice(taskIndex, 1, task);
+    }
+  }
+
   return {
     boards,
     updateColumnName,
     removeTask,
+
     draggedTask,
     draggedTaskId,
     onDragStart,
     onDragStop,
     resetDrag,
+
     isAddCardModalVisible,
     addCardModalColumnId,
     addTask,
     openAddTaskModal,
+
+    isUpdateCardModalVisible,
+    updateCardModalColumnId,
+    updateCardModalTask,
+    updateTask,
+    openUpdateTaskModal,
   };
 });
 

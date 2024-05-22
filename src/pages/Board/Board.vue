@@ -4,7 +4,8 @@ import { usePageStore } from "@/shared/stores/page";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import BoardColumn from "@/entities/BoardColumn";
-import AddCardModal from "@/entities/AddCardModal/AddCardModal.vue";
+import AddCardModal from "@/entities/AddCardModal";
+import UpdateCardModal from "@/entities/UpdateCardModal";
 
 const boardsStore = useBoardsStore();
 const { page } = storeToRefs(usePageStore());
@@ -31,6 +32,7 @@ if (board) {
     </div>
   </div>
   <AddCardModal v-if="board" :board-id="board.id" />
+  <UpdateCardModal v-if="board" :board-id="board.id" />
 </template>
 
 <style scoped lang="scss">

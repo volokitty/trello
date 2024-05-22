@@ -45,13 +45,17 @@ function onDragStart() {
     draggable="true"
     @dragstart="onDragStart"
     @dragend="boardsStore.resetDrag"
+    @click="boardsStore.openUpdateTaskModal(boardId, task)"
   >
-    <span>
-      {{ props.task.name }}
-    </span>
+    <span>{{ props.task.name }}</span>
     <p class="description">{{ props.task.description }}</p>
     <div class="footer v-flex justify-between mt-6">
-      <ElButton link type="danger" :icon="Trash2" @click="openRemoveConfirm">
+      <ElButton
+        link
+        type="danger"
+        :icon="Trash2"
+        @click.stop="openRemoveConfirm"
+      >
         Delete
       </ElButton>
       <div class="info v-flex gap-3">
